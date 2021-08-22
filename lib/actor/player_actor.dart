@@ -17,8 +17,6 @@ class PlayerActor extends AbstractActor {
 
   late double _animationPositionOffset;
 
-  bool _moved = false;
-
   PlayerActor({ required Player player, required SpriteComponent component, required TextComponent nameComponent,
     required List<SpriteAnimationComponent> animationComponents, double animationPositionOffset = 0 }) : super(component) {
     this._player = player;
@@ -44,14 +42,10 @@ class PlayerActor extends AbstractActor {
 
   @override
   void update(double dt) {
-    if (_moved) {
-      _animationComponent.position = Vector2(
-          (_player.xCoord * boardCellSize) + ((boardCellSize - _animationComponent.width) / 2) + _animationPositionOffset,
-          boardSize - ((_player.yCoord * boardCellSize) + boardCellSize)
-      );
-
-      _moved = false;
-    }
+    _animationComponent.position = Vector2(
+        (_player.xCoord * boardCellSize) + ((boardCellSize - _animationComponent.width) / 2) + _animationPositionOffset,
+        boardSize - ((_player.yCoord * boardCellSize) + boardCellSize)
+    );
   }
 
   String move(int value) {
@@ -152,8 +146,6 @@ class PlayerActor extends AbstractActor {
     }
 
     _calcPositionCoords();
-
-    _moved = true;
 
     return returnedMessage;
   }
