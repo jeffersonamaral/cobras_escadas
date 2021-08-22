@@ -1,7 +1,6 @@
 import 'dart:async' as timer;
 
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flame/palette.dart';
@@ -82,6 +81,10 @@ class CobrasEscadas extends BaseGame with TapDetector {
   late TextComponent _txtMessage;
 
   late TextComponent _txtExtraMessage;
+
+  late TextComponent _txtDiceMessage;
+
+  late TextComponent _txtWarningMessage;
 
   late PlayerActor _playerActor1;
 
@@ -310,6 +313,28 @@ class CobrasEscadas extends BaseGame with TapDetector {
         )
     );
 
+    add(
+        _txtDiceMessage = TextComponent('',
+          textRenderer: TextPaint(
+              config: TextPaintConfig(
+                color: Colors.white,
+                fontSize: 30,
+              )
+          ),
+        )
+    );
+
+    add(
+        _txtWarningMessage = TextComponent('',
+          textRenderer: TextPaint(
+              config: TextPaintConfig(
+                color: Colors.yellow,
+                fontSize: 35,
+              )
+          ),
+        )
+    );
+
     _buttonActor1 = ButtonActor(
       component: SpriteComponent(
           size: Vector2(160, 53)
@@ -421,6 +446,8 @@ class CobrasEscadas extends BaseGame with TapDetector {
 
     _txtMessage.position = Vector2((screenWidth - _txtMessage.width) / 2, 800);
     _txtExtraMessage.position = Vector2((screenWidth - _txtExtraMessage.width) / 2, 850);
+    _txtDiceMessage.position = Vector2((screenWidth - _txtDiceMessage.width) / 2, 1060);
+    _txtWarningMessage.position = Vector2((screenWidth - _txtWarningMessage.width) / 2, 1200);
 
     _buttonActor1.update(dt);
     _playerActor1.update(dt);
@@ -461,15 +488,22 @@ class CobrasEscadas extends BaseGame with TapDetector {
 
   // função criada conforme o descrito do enunciado do Teste Técnico 02
   Future<void> _jogar(int dice1Value, int dice2Value, [bool forced = true]) async {
+    _txtDiceMessage.text = 'Total dos dados: ${dice1Value + dice2Value}';
+    print('Dado 1 = $dice1Value, Dado 2 = $dice2Value, Total = ${dice1Value + dice2Value}');
+
     if (forced) {
       _diceActor1.currentValue = dice1Value;
       _diceActor2.currentValue = dice2Value;
     }
 
     if (_playerInTurn == 1) {
-      _playerActor1.move(dice1Value + dice2Value);
+      _txtWarningMessage.text = _playerActor1.move(dice1Value + dice2Value);
     } else {
-      _playerActor2.move(dice1Value + dice2Value);
+      _txtWarningMessage.text = _playerActor2.move(dice1Value + dice2Value);
+    }
+
+    if (_txtWarningMessage.text.isNotEmpty) {
+      print(_txtWarningMessage.text);
     }
 
     String extraMessage;

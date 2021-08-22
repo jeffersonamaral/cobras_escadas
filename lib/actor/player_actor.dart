@@ -54,8 +54,9 @@ class PlayerActor extends AbstractActor {
     }
   }
 
-  void move(int value) {
+  String move(int value) {
     bool reversed = false;
+    String returnedMessage = '';
 
     for (int i = 0; i < value; i++) {
       if (_player.positionInBoard == 100) {
@@ -68,6 +69,8 @@ class PlayerActor extends AbstractActor {
         toPrevious();
       }
     }
+
+    returnedMessage = 'Jogador ${_player.name} caiu em uma casa com ESCADA!';
 
     // posições com escadas
     switch (_player.positionInBoard) {
@@ -104,45 +107,55 @@ class PlayerActor extends AbstractActor {
       case 87:
         _player.positionInBoard = 94;
         break;
+      default:
+        returnedMessage = '';
     }
 
-    // posições com cobras
-    switch (_player.positionInBoard) {
-      case 16:
-        _player.positionInBoard = 6;
-        break;
-      case 46:
-        _player.positionInBoard = 25;
-        break;
-      case 49:
-        _player.positionInBoard = 11;
-        break;
-      case 62:
-        _player.positionInBoard = 19;
-        break;
-      case 64:
-        _player.positionInBoard = 60;
-        break;
-      case 74:
-        _player.positionInBoard = 53;
-        break;
-      case 89:
-        _player.positionInBoard = 68;
-        break;
-      case 92:
-        _player.positionInBoard = 88;
-        break;
-      case 95:
-        _player.positionInBoard = 75;
-        break;
-      case 99:
-        _player.positionInBoard = 80;
-        break;
+    if (returnedMessage.isEmpty) {
+      returnedMessage = 'Jogador ${_player.name} caiu em uma casa com COBRA!';
+
+      // posições com cobras
+      switch (_player.positionInBoard) {
+        case 16:
+          _player.positionInBoard = 6;
+          break;
+        case 46:
+          _player.positionInBoard = 25;
+          break;
+        case 49:
+          _player.positionInBoard = 11;
+          break;
+        case 62:
+          _player.positionInBoard = 19;
+          break;
+        case 64:
+          _player.positionInBoard = 60;
+          break;
+        case 74:
+          _player.positionInBoard = 53;
+          break;
+        case 89:
+          _player.positionInBoard = 68;
+          break;
+        case 92:
+          _player.positionInBoard = 88;
+          break;
+        case 95:
+          _player.positionInBoard = 75;
+          break;
+        case 99:
+          _player.positionInBoard = 80;
+          break;
+        default:
+          returnedMessage = '';
+      }
     }
 
     _calcPositionCoords();
 
     _moved = true;
+
+    return returnedMessage;
   }
 
   void toNext() {
