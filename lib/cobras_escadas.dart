@@ -26,6 +26,11 @@ void main() {
   _testMode = true;
 
   // TEST MODE
+  // Tempo em Segundos que se esperará entre cada jogada de teste.
+  // Este valor deve ser informado em MILISSEGUNDOS.
+  _playsDelayTestMode = 700;
+
+  // TEST MODE
   // Caso estes valores sejam informados, o jogo vai usar estes valores como
   // valores dos dados. Caso contrário os valores serão definidos
   // aleatoriamente quando o jogador clicar no botão "JOGAR".
@@ -55,11 +60,6 @@ void main() {
     ..add([5, 4])
     ..add([1, 1])
     ..add([3, 2]);
-
-  // TEST MODE
-  // Tempo em Segundos que se esperará entre cada jogada de teste.
-  // Este valor deve ser informado em MILISSEGUNDOS.
-  _playsDelayTestMode = 700;
 
   runApp(
       MaterialApp(
