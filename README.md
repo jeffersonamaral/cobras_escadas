@@ -5,6 +5,7 @@ Implementação, utilizando a Linguagem Dart/Flutter, do jogo indiano "Cobras e 
 ## Requisitos
 
 Flutter SDK 2.2+
+
 Android Studio 4.2+
 
 ## Execução
