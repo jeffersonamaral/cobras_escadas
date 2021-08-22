@@ -5,15 +5,16 @@ Implementação, utilizando a Linguagem Dart/Flutter, do jogo indiano "Cobras e 
 ## Requisitos
 
 - Flutter SDK 2.2+
-- Android Studio 4.2+ (Plugins para Dart e Flutter devem estar instalados)
+- Android Studio 4.2+ (plugins para Dart e Flutter devem estar instalados)
+- Visual Studio Code 1.57+ (extensões para Dart e Flutter devem estar instaladas)
 - Android SDK (para execução em aparelho/emulador Android)
 - Google Chrome (para execução Web)
 
 ## Execução
 
-Após clonado, o projeto deve ser aberto no Android Studio através do menu ```File -> Open```. Depois de aberto é necessário executar o comando ```flutter pub get``` no diretório raiz do projeto ou, no Android Studio, usar o menu ```Tools -> Flutter -> Flutter Pub Get``` a fim de recarregar os assets e dependências.
+Após clonado, o projeto deve ser aberto usando o Android Studio ou Visual Studio Code. Depois de aberto é necessário executar o comando ```flutter pub get``` no diretório raiz do projeto ou, no Android Studio, usar o menu ```Tools -> Flutter -> Flutter Pub Get``` a fim de recarregar os assets e dependências.
 
-Por fim deve-se usar o botão ```Run``` selecionando o alvo desejado (_Web_ ou _Mobile_).
+Por fim deve-se executar o projeto selecionando o alvo desejado (_Web_ ou _Mobile_).
 
 ## Testes
 
