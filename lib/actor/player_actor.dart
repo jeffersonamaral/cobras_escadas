@@ -11,6 +11,8 @@ class PlayerActor extends AbstractActor {
 
   late TextComponent _nameComponent;
 
+  late List<SpriteAnimationComponent> _animationComponents;
+
   late SpriteAnimationComponent _animationComponent;
 
   late double _animationPositionOffset;
@@ -18,10 +20,11 @@ class PlayerActor extends AbstractActor {
   bool _moved = false;
 
   PlayerActor({ required Player player, required SpriteComponent component, required TextComponent nameComponent,
-    required SpriteAnimationComponent animationComponent, double animationPositionOffset = 0 }) : super(component) {
+    required List<SpriteAnimationComponent> animationComponents, double animationPositionOffset = 0 }) : super(component) {
     this._player = player;
     this._nameComponent = nameComponent;
-    this._animationComponent = animationComponent;
+    this._animationComponents = animationComponents;
+    this._animationComponent = animationComponents[0];
     this._animationPositionOffset = animationPositionOffset;
 
     this._animationComponent.overridePaint = paintWithAntiAlias;

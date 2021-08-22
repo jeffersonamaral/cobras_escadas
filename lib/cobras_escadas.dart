@@ -189,19 +189,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
               )
           ),
         ),
-        animationComponent: SpriteAnimationComponent(
-          animation: await loadSpriteAnimation(
-            'p1.png',
-            SpriteAnimationData.sequenced(
-              amount: 12,
-              amountPerRow: 3,
-              textureSize: Vector2(48, 48),
-              stepTime: 0.3,
-            ),
-          ),
-          position: Vector2.zero(),
-          size: Vector2(64, 64),
-        ),
+        animationComponents: await _createAnimations('p1.png'),
         animationPositionOffset: -10
     );
 
@@ -224,25 +212,77 @@ class CobrasEscadas extends BaseGame with TapDetector {
               )
           ),
         ),
-        animationComponent: SpriteAnimationComponent(
-          animation: await loadSpriteAnimation(
-            'p2.png',
-            SpriteAnimationData.sequenced(
-              amount: 12,
-              amountPerRow: 3,
-              textureSize: Vector2(48, 48),
-              stepTime: 0.3,
-            ),
-          ),
-          position: Vector2.zero(),
-          size: Vector2(64, 64),
-        ),
+        animationComponents: await _createAnimations('p2.png'),
         animationPositionOffset: 10
     );
 
     add(_playerActor2.component);
     add(_playerActor2.nameComponent);
     add(_playerActor2.animationComponent);
+  }
+
+  Future<List<SpriteAnimationComponent>> _createAnimations(String spriteUrl) async {
+    List<SpriteAnimationComponent> animations = [];
+
+    return animations
+      ..add(SpriteAnimationComponent(
+        animation: await loadSpriteAnimation(
+          spriteUrl,
+          SpriteAnimationData.sequenced(
+            amount: 3,
+            textureSize: Vector2(48, 48),
+            texturePosition: Vector2.zero(),
+            stepTime: 0.3,
+          ),
+        ),
+        position: Vector2.zero(),
+        size: Vector2(64, 64),
+      ))
+      ..add(
+          SpriteAnimationComponent(
+            animation: await loadSpriteAnimation(
+              spriteUrl,
+              SpriteAnimationData.sequenced(
+                amount: 3,
+                textureSize: Vector2(48, 48),
+                texturePosition: Vector2(0, 48),
+                stepTime: 0.3,
+              ),
+            ),
+            position: Vector2.zero(),
+            size: Vector2(64, 64),
+          )
+      )
+      ..add(
+          SpriteAnimationComponent(
+            animation: await loadSpriteAnimation(
+              spriteUrl,
+              SpriteAnimationData.sequenced(
+                amount: 3,
+                textureSize: Vector2(48, 48),
+                texturePosition: Vector2(0, 96),
+                stepTime: 0.3,
+              ),
+            ),
+            position: Vector2.zero(),
+            size: Vector2(64, 64),
+          )
+      )
+      ..add(
+          SpriteAnimationComponent(
+            animation: await loadSpriteAnimation(
+              spriteUrl,
+              SpriteAnimationData.sequenced(
+                amount: 3,
+                textureSize: Vector2(48, 48),
+                texturePosition: Vector2(0, 144),
+                stepTime: 0.3,
+              ),
+            ),
+            position: Vector2.zero(),
+            size: Vector2(64, 64),
+          )
+      );
   }
 
   Future<void> _createUI() async {
