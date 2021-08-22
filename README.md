@@ -1,4 +1,4 @@
-# cobras_escadas
+# Cobras & Escadas
 
 Implementação, utilizando a Linguagem Dart/Flutter, do jogo indiano "Cobras e Escadas".
 
@@ -27,3 +27,15 @@ Para habilitar o _Test Mode_ é necessário no arquivo ```cobras_escadas.dart```
 - **_testMode**: deve ser alterada para **_true_**;
 - **_playsDelayTestMode**: deve-se informar (em milissegundos) o tempo de espera entre as jogadas que serão feitas como teste;
 - **_dicesValuesTestMode**: deve-se informar a lista de valores para os dados, onde cada jogada deve ser representada por um par [<valor_dado_1>, <valor_dado_2>].
+
+#### Exemplo de Inicialização dos Valores dos Dados
+```Dart
+  _dicesValuesTestMode
+    ..add([1, 1]) // 1ª jogada: primeiro dado com valor 1, segundo dado com valor 1
+    ..add([2, 1]) // 2ª jogada: primeiro dado com valor 2, segundo dado com valor 1
+    ..add([5, 5]) // 3ª jogada: primeiro dado com valor 5, segundo dado com valor 5
+    ..add([3, 2]); // 4ª jogada: primeiro dado com valor 3, segundo dado com valor 4
+```
+**OBS**: É de livre escolha a quantidade de jogadas informadas.
+
+**OBS 2**: Ao se executar o projeto com o _Test Mode_ ativado as jogadas informadas em **__dicesValuesTestMode_** serão automaticamente computadas logo após o início da execução.
