@@ -478,6 +478,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
       if (_playerActor1.player.positionInBoard == 100) {
         extraMessage = 'Jogador ${_playerActor1.player.name} venceu!';
         _gameFinished = true;
+        FlameAudio.audioCache.play('victory.mp3');
       } else {
         extraMessage = 'Jogador ${_playerActor1.player.name} está na casa ${_playerActor1.player.positionInBoard}';
       }
@@ -485,6 +486,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
       if (_playerActor2.player.positionInBoard == 100) {
         extraMessage = 'Jogador ${_playerActor2.player.name} venceu!';
         _gameFinished = true;
+        FlameAudio.audioCache.play('victory.mp3');
       } else {
         extraMessage = 'Jogador ${_playerActor2.player.name} está na casa ${_playerActor2.player.positionInBoard}';
       }
