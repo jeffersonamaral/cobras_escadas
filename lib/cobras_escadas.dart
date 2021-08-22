@@ -1,11 +1,13 @@
 import 'dart:async' as timer;
 
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame/widgets.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -23,7 +25,7 @@ late int _playsDelayTestMode;
 void main() {
   // TEST MODE
   // Habilita ou desabilita o TEST MODE.
-  _testMode = true;
+  _testMode = false;
 
   // TEST MODE
   // Tempo em Segundos que se esperará entre cada jogada de teste.
@@ -441,6 +443,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
       _diceActor1.lauch();
       _diceActor2.lauch();
       _dicesLauched = true;
+      FlameAudio.audioCache.play('dice.mp3');
     } else {
       _txtExtraMessage.text = 'O jogo acabou!';
       print('O jogo acabou!');
