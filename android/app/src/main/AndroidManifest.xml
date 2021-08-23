@@ -2,10 +2,11 @@
     package="com.jeffersonamaral.cobras_escadas">
    <application
         android:label="Cobras &amp; Escadas"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:appCategory="game">
         <activity
             android:name=".MainActivity"
-            android:label="Cobras &amp; Escadas"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
