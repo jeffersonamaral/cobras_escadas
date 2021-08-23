@@ -27,7 +27,7 @@ class DiceActor {
   void lauch() {
     if (!_launched) {
       _launched = true;
-      _animationComponent.animation?.currentIndex = Random().nextInt(5);
+      _animationComponent.animation?.currentIndex = Random().nextInt(6);
       _animationComponent.start();
 
       timer.Timer(Duration(seconds: 3), () {

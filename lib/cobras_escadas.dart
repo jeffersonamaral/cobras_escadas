@@ -1,4 +1,5 @@
 import 'dart:async' as timer;
+import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -179,12 +180,14 @@ class CobrasEscadas extends BaseGame with TapDetector {
   }
 
   Future<void> _createPlayers() async {
+    String player1Avatar = Random().nextBool == true ? 'p1' : 'p4';
+
     _playerActor1 = PlayerActor(
         player: Player('1'),
         component: SpriteComponent(
             position: Vector2(50, 900),
             size: Vector2(160, 160),
-            sprite: await loadSprite('p1_avatar.png')
+            sprite: await loadSprite('${player1Avatar}_avatar.png')
         )..renderFlipX = true,
         nameComponent: TextComponent('Jogador 1',
           textRenderer: TextPaint(
@@ -194,7 +197,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
               )
           ),
         ),
-        animationComponents: await _createAnimations('p1.png'),
+        animationComponents: await _createAnimations('$player1Avatar.png'),
         animationPositionOffset: -10
     );
 
@@ -202,12 +205,14 @@ class CobrasEscadas extends BaseGame with TapDetector {
     add(_playerActor1.nameComponent);
     add(_playerActor1.animationComponent);
 
+    String player2Avatar = Random().nextBool() == true ? 'p2' : 'p3';
+
     _playerActor2 = PlayerActor(
         player: Player('2'),
         component: SpriteComponent(
             position: Vector2(screenWidth - 160 - 50, 900),
             size: Vector2(160, 160),
-            sprite: await loadSprite('p2_avatar.png')
+            sprite: await loadSprite('${player2Avatar}_avatar.png')
         ),
         nameComponent: TextComponent('Jogador 2',
           textRenderer: TextPaint(
@@ -217,7 +222,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
               )
           ),
         ),
-        animationComponents: await _createAnimations('p2.png'),
+        animationComponents: await _createAnimations('$player2Avatar.png'),
         animationPositionOffset: 10
     );
 
