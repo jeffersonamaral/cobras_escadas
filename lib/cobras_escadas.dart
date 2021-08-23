@@ -87,6 +87,8 @@ class CobrasEscadas extends BaseGame with TapDetector {
 
   late TextComponent _txtWarningMessage;
 
+  late TextComponent _txtInfo;
+
   late PlayerActor _playerActor1;
 
   late ButtonActor _buttonActor1;
@@ -340,6 +342,17 @@ class CobrasEscadas extends BaseGame with TapDetector {
         )
     );
 
+    add(
+        _txtInfo = TextComponent('Clique no botão JOGAR quando for a sua vez',
+          textRenderer: TextPaint(
+              config: TextPaintConfig(
+                color: Colors.white,
+                fontSize: 20,
+              )
+          ),
+        )
+    );
+
     _buttonActor1 = ButtonActor(
       component: SpriteComponent(
           size: Vector2(160, 53)
@@ -453,6 +466,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
     _txtExtraMessage.position = Vector2((screenWidth - _txtExtraMessage.width) / 2, 850);
     _txtDiceMessage.position = Vector2((screenWidth - _txtDiceMessage.width) / 2, 1060);
     _txtWarningMessage.position = Vector2((screenWidth - _txtWarningMessage.width) / 2, 1200);
+    _txtInfo.position = Vector2((screenWidth - _txtInfo.width) / 2, screenHeight - 30);
 
     _buttonActor1.update(dt);
     _playerActor1.update(dt);
