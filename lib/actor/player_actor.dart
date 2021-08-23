@@ -1,5 +1,6 @@
 
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import '../model/player.dart';
 import '../util/constants.dart';
@@ -105,6 +106,10 @@ class PlayerActor extends AbstractActor {
         returnedMessage = '';
     }
 
+    if (returnedMessage.isNotEmpty) {
+      FlameAudio.audioCache.play('stairs.mp3');
+    }
+
     if (returnedMessage.isEmpty) {
       returnedMessage = 'Jogador ${_player.name} caiu em uma casa com COBRA!';
 
@@ -142,6 +147,10 @@ class PlayerActor extends AbstractActor {
           break;
         default:
           returnedMessage = '';
+      }
+
+      if (returnedMessage.isNotEmpty) {
+        FlameAudio.audioCache.play('slip.mp3');
       }
     }
 

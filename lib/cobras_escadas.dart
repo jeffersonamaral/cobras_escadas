@@ -25,7 +25,7 @@ late int _playsDelayTestMode;
 void main() {
   // TEST MODE
   // Habilita ou desabilita o TEST MODE.
-  _testMode = false;
+  _testMode = true;
 
   // TEST MODE
   // Tempo em Segundos que se esperará entre cada jogada de teste.
