@@ -182,7 +182,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
   }
 
   Future<void> _createPlayers() async {
-    String player1Avatar = Random().nextBool == true ? 'p1' : 'p4';
+    String player1Avatar = Random().nextBool() == true ? 'p1' : 'p4';
 
     _playerActor1 = PlayerActor(
         player: Player('1'),
@@ -353,6 +353,8 @@ class CobrasEscadas extends BaseGame with TapDetector {
         )
     );
 
+    _txtInfo.position = Vector2((screenWidth - _txtInfo.width) / 2, screenHeight - 30);
+
     _buttonActor1 = ButtonActor(
       component: SpriteComponent(
           size: Vector2(160, 53)
@@ -466,7 +468,6 @@ class CobrasEscadas extends BaseGame with TapDetector {
     _txtExtraMessage.position = Vector2((screenWidth - _txtExtraMessage.width) / 2, 850);
     _txtDiceMessage.position = Vector2((screenWidth - _txtDiceMessage.width) / 2, 1060);
     _txtWarningMessage.position = Vector2((screenWidth - _txtWarningMessage.width) / 2, 1200);
-    _txtInfo.position = Vector2((screenWidth - _txtInfo.width) / 2, screenHeight - 30);
 
     _buttonActor1.update(dt);
     _playerActor1.update(dt);
@@ -753,6 +754,8 @@ class PlayerActor extends AbstractActor {
 
   late double _animationPositionOffset;
 
+  bool _moved = false;
+
   PlayerActor({ required Player player, required SpriteComponent component, required TextComponent nameComponent,
     required List<SpriteAnimationComponent> animationComponents, double animationPositionOffset = 0 }) : super(component) {
     this._player = player;
@@ -778,10 +781,14 @@ class PlayerActor extends AbstractActor {
 
   @override
   void update(double dt) {
-    _animationComponent.position = Vector2(
-        (_player.xCoord * boardCellSize) + ((boardCellSize - _animationComponent.width) / 2) + _animationPositionOffset,
-        boardSize - ((_player.yCoord * boardCellSize) + boardCellSize)
-    );
+    if (_moved) {
+      _animationComponent.position = Vector2(
+          (_player.xCoord * boardCellSize) + ((boardCellSize - _animationComponent.width) / 2) + _animationPositionOffset,
+          boardSize - ((_player.yCoord * boardCellSize) + boardCellSize)
+      );
+
+      _moved = false;
+    }
   }
 
   String move(int value) {
@@ -890,6 +897,8 @@ class PlayerActor extends AbstractActor {
     }
 
     _calcPositionCoords();
+
+    _moved = true;
 
     return returnedMessage;
   }
