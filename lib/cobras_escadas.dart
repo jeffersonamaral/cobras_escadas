@@ -1,13 +1,10 @@
 import 'dart:async' as timer;
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:flame/gestures.dart';
+import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
-import 'package:flame/sprite.dart';
-import 'package:flame/widgets.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -77,7 +74,7 @@ void main() {
   );
 }
 
-class CobrasEscadas extends BaseGame with TapDetector {
+class CobrasEscadas extends FlameGame with TapDetector {
 
   late TextComponent _txtMessage;
 
@@ -111,10 +108,11 @@ class CobrasEscadas extends BaseGame with TapDetector {
 
   @override
   Future<void> onLoad() async {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
-    viewport = FixedResolutionViewport(Vector2(screenWidth, screenHeight));
-    camera.setRelativeOffset(Anchor.topLeft);
+    camera
+      ..viewport = FixedResolutionViewport(Vector2(screenWidth, screenHeight))
+      ..setRelativeOffset(Anchor.topLeft);
 
     await _createBoard();
     await _createPlayers();
@@ -126,6 +124,8 @@ class CobrasEscadas extends BaseGame with TapDetector {
     if (_testMode && _dicesValuesTestMode.isNotEmpty) {
       _test();
     }
+
+    return super.onLoad();
   }
 
   // TEST MODE
@@ -167,7 +167,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
             position: Vector2.zero(),
             size: Vector2(screenWidth, screenHeight),
             sprite: await loadSprite('background.png'),
-            overridePaint: paintWithAntiAlias
+            paint: paintWithAntiAlias
         )
     );
 
@@ -176,7 +176,7 @@ class CobrasEscadas extends BaseGame with TapDetector {
             position: Vector2.zero(),
             size: Vector2(boardSize, boardSize),
             sprite: await loadSprite('board.png'),
-            overridePaint: paintWithAntiAlias
+            paint: paintWithAntiAlias
         )
     );
   }
@@ -190,13 +190,14 @@ class CobrasEscadas extends BaseGame with TapDetector {
             position: Vector2(50, 900),
             size: Vector2(160, 160),
             sprite: await loadSprite('${player1Avatar}_avatar.png')
-        )..renderFlipX = true,
-        nameComponent: TextComponent('Jogador 1',
+        ),
+        nameComponent: TextComponent(
+          text: 'Jogador 1',
           textRenderer: TextPaint(
-              config: TextPaintConfig(
-                color: BasicPalette.white.color,
-                fontSize: 30,
-              )
+            style: TextStyle(
+              color: BasicPalette.white.color,
+              fontSize: 30,
+            ),
           ),
         ),
         animationComponents: await _createAnimations('$player1Avatar.png'),
@@ -216,12 +217,13 @@ class CobrasEscadas extends BaseGame with TapDetector {
             size: Vector2(160, 160),
             sprite: await loadSprite('${player2Avatar}_avatar.png')
         ),
-        nameComponent: TextComponent('Jogador 2',
+        nameComponent: TextComponent(
+          text: 'Jogador 2',
           textRenderer: TextPaint(
-              config: TextPaintConfig(
-                color: BasicPalette.white.color,
-                fontSize: 30,
-              )
+            style: TextStyle(
+              color: BasicPalette.white.color,
+              fontSize: 30,
+            ),
           ),
         ),
         animationComponents: await _createAnimations('$player2Avatar.png'),
@@ -299,9 +301,10 @@ class CobrasEscadas extends BaseGame with TapDetector {
 
   Future<void> _createUI() async {
     add(
-        _txtMessage = TextComponent('VEZ DO JOGADOR ${_playerActor1.player.name}',
+        _txtMessage = TextComponent(
+          text: 'VEZ DO JOGADOR ${_playerActor1.player.name}',
           textRenderer: TextPaint(
-              config: TextPaintConfig(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: 40,
               )
@@ -310,9 +313,10 @@ class CobrasEscadas extends BaseGame with TapDetector {
     );
 
     add(
-        _txtExtraMessage = TextComponent('',
+        _txtExtraMessage = TextComponent(
+          text: '',
           textRenderer: TextPaint(
-              config: TextPaintConfig(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: 35,
               )
@@ -321,9 +325,10 @@ class CobrasEscadas extends BaseGame with TapDetector {
     );
 
     add(
-        _txtDiceMessage = TextComponent('',
+        _txtDiceMessage = TextComponent(
+          text: '',
           textRenderer: TextPaint(
-              config: TextPaintConfig(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: 30,
               )
@@ -332,9 +337,10 @@ class CobrasEscadas extends BaseGame with TapDetector {
     );
 
     add(
-        _txtWarningMessage = TextComponent('',
+        _txtWarningMessage = TextComponent(
+          text: '',
           textRenderer: TextPaint(
-              config: TextPaintConfig(
+              style: TextStyle(
                 color: Colors.yellow,
                 fontSize: 35,
               )
@@ -343,9 +349,10 @@ class CobrasEscadas extends BaseGame with TapDetector {
     );
 
     add(
-        _txtInfo = TextComponent('Clique no botão JOGAR quando for a sua vez',
+        _txtInfo = TextComponent(
+          text: 'Clique no botão JOGAR quando for a sua vez',
           textRenderer: TextPaint(
-              config: TextPaintConfig(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               )
@@ -624,7 +631,7 @@ abstract class AbstractActor {
 
   AbstractActor(SpriteComponent component) {
     _component = component;
-    _component.overridePaint = paintWithAntiAlias;
+    _component.paint = paintWithAntiAlias;
   }
 
   Vector2 get size => component.size;
@@ -703,7 +710,7 @@ class DiceActor {
 
   DiceActor({ required StoppableSpriteAnimationComponent animationComponent }) {
     this._animationComponent = animationComponent;
-    this._animationComponent.overridePaint = paintWithAntiAlias;
+    this._animationComponent.paint = paintWithAntiAlias;
 
     init();
   }
@@ -764,7 +771,7 @@ class PlayerActor extends AbstractActor {
     this._animationComponent = animationComponents[0];
     this._animationPositionOffset = animationPositionOffset;
 
-    this._animationComponent.overridePaint = paintWithAntiAlias;
+    this._animationComponent.paint = paintWithAntiAlias;
 
     init();
   }
@@ -1007,7 +1014,7 @@ class StoppableSpriteAnimationComponent extends SpriteAnimationComponent {
         Vector2? size,
         SpriteAnimation? animation,
         Paint? overridePaint })
-      : super(position: position, size: size, animation: animation, overridePaint: overridePaint) {
+      : super(position: position, size: size, animation: animation/*, overridePaint: overridePaint*/) {
     _stopped = stopped;
   }
 
