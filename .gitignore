@@ -29,8 +29,7 @@
 .packages
 .pub-cache/
 .pub/
-pubspec.lock
-*pubspec.lock
+*.lock
 /build/
 
 # Web related
