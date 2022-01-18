@@ -7,7 +7,6 @@ import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'actor/button_actor.dart';
 import 'actor/dice_actor.dart';
@@ -58,8 +57,7 @@ class CobrasEscadas extends FlameGame with TapDetector {
 
   @override
   Future<void> onLoad() async {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     camera
       ..viewport = FixedResolutionViewport(Vector2(screenWidth, screenHeight))
       ..setRelativeOffset(Anchor.topLeft);

@@ -1,4 +1,5 @@
 
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +49,9 @@ void main() {
     ..add([5, 4])
     ..add([1, 1])
     ..add([3, 2]);
+
+  WidgetsFlutterBinding();
+  Flame.device.fullScreen();
 
   runApp(
       MaterialApp(
