@@ -62,6 +62,12 @@ class CobrasEscadas extends FlameGame with TapDetector {
       ..viewport = FixedResolutionViewport(Vector2(screenWidth, screenHeight))
       ..setRelativeOffset(Anchor.topLeft);
 
+    await _init();
+
+    return super.onLoad();
+  }
+
+  Future<void> _init() async {
     await _createBoard();
     await _createPlayers();
     await _createUI();
@@ -72,8 +78,15 @@ class CobrasEscadas extends FlameGame with TapDetector {
     if (_testMode && _dicesValuesTestMode.isNotEmpty) {
       _test();
     }
+  }
 
-    return super.onLoad();
+  void reset() {
+    _playerActor1.position.x = 50;
+    _playerActor1.position.y = 900;
+    _playerActor2.position.x = screenWidth - 160 - 50;
+    _playerActor2.position.y = 900;
+
+    overlays.remove(gameOverOverlay);
   }
 
   // TEST MODE
@@ -527,9 +540,12 @@ class CobrasEscadas extends FlameGame with TapDetector {
         }
       }
     } else {
+      // pauseEngine();
+
       _buttonActor1.active = false;
       _buttonActor2.active = false;
       message = 'JOGO FINALIZADO';
+      overlays.add(gameOverOverlay);
     }
 
     _txtMessage.text = message;

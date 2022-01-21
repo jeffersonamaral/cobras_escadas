@@ -5,3 +5,5 @@ const double screenHeight = 1366;
 const double boardSize = 768;
 const double boardCellSize = boardSize / 10;
 final Paint paintWithAntiAlias = Paint()..isAntiAlias = true..filterQuality = FilterQuality.high;
+
+const String gameOverOverlay = 'gameOver';

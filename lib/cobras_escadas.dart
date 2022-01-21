@@ -4,6 +4,8 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import 'game.dart';
+import 'util/contants.dart';
+import 'widget/game_over_overlay.dart';
 
 List<List<int>> _dicesValuesTestMode = [];
 late bool _testMode;
@@ -12,7 +14,7 @@ late int _playsDelayTestMode;
 void main() {
   // TEST MODE
   // Habilita ou desabilita o TEST MODE.
-  _testMode = false;
+  _testMode = true;
 
   // TEST MODE
   // Tempo em Segundos que se esperará entre cada jogada de teste.
@@ -59,7 +61,8 @@ void main() {
           home: Container(
             child: SafeArea(
                 child: GameWidget(
-                    game: CobrasEscadas(_testMode, _dicesValuesTestMode, _playsDelayTestMode)
+                    game: CobrasEscadas(_testMode, _dicesValuesTestMode, _playsDelayTestMode),
+                    overlayBuilderMap: const { gameOverOverlay: GameOverOverlay.create },
                 )
             ),
           )
